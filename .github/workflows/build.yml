@@ -4,13 +4,15 @@ on: [push]
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-13
     steps:
     - uses: actions/checkout@v3
-    - name: Setup Theos
+    
+    - name: Set up Theos
       run: |
-        git clone --recursive https://github.com/theos/theos.git ~/theos
-    - name: Compile to dylib
+        git clone --recursive https://github.com/theos/theos.git $HOME/theos
+        
+    - name: Compile Tweak
       run: |
-        export THEOS=~/theos
+        export THEOS=$HOME/theos
         make
