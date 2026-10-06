@@ -16,7 +16,7 @@
     self.menuView.layer.borderWidth = 1.5;
     self.menuView.layer.borderColor = [[UIColor cyanColor] CGColor];
     
-    // ٢. ناڤێ مێنۆیێ (Y2_KRD) و تێکستێ سەرشاشێ
+    // ٢. ناڤێ مێنۆیێ (Y2_KRD)
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, 10, 185, 35)];
     titleLabel.text = @"⚡ Y2_KRD VIP ⚡";
     titleLabel.textColor = [UIColor whiteColor];
@@ -24,37 +24,32 @@
     titleLabel.textAlignment = NSTextAlignmentLeft;
     [self.menuView addSubview:titleLabel];
     
-    // --- ٣. زێدەکرنا ئایکۆنێ (Icon / Image) ---
-    // لێرە تو دشێی ناڤێ ئایکۆنێ گوهۆڕی (بۆ نموونە: bolt.fill, shield.fill, gamecontroller.fill)
+    // ٣. ئایکۆن
     UIImage *iconImage = [UIImage systemImageNamed:@"bolt.fill"];
     UIImageView *iconView = [[UIImageView alloc] initWithImage:iconImage];
     iconView.frame = CGRectMake(15, 12, 25, 25);
     iconView.tintColor = [UIColor cyanColor];
     [self.menuView addSubview:iconView];
     
-    // ٤. زێدەکرنا پشکا ڤەگوهاستنێ (Pan Gesture)
+    // ٤. جووڵاندنا مێنۆیێ (Pan Gesture)
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
     [self.menuView addGestureRecognizer:panGesture];
     
-    // ٥. زێدەکرنا مێنۆیێ بۆ سەر شاشێ
+    // ٥. زێدەکرنا بۆ سەر شاشێ
     UIWindow *mainWindow = [[UIApplication sharedApplication] keyWindow];
     [mainWindow addSubview:self.menuView];
 }
 
-// فەنکشنا جووڵاندن و ببن و بینینا مێنۆیێ ب پەنجێ
-- (void)handlePan:(UIPanGestureRecognizer * _Nonnull)gesture {
+- (void)handlePan:(UIPanGestureRecognizer *)gesture {
     UIWindow *mainWindow = [[UIApplication sharedApplication] keyWindow];
     CGPoint translation = [gesture translationInView:mainWindow];
-    
     CGPoint recognizerCenter = gesture.view.center;
     gesture.view.center = CGPointMake(recognizerCenter.x + translation.x, recognizerCenter.y + translation.y);
-    
     [gesture setTranslation:CGPointZero inView:mainWindow];
 }
 
 @end
 
-// دەستپێکرنا مێنۆیێ دەما ئەپ هاتە ڤەکرن
 %ctor {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         Y2KRDDraggableMenu *menu = [[Y2KRDDraggableMenu alloc] init];
